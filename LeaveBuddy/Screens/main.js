@@ -14,6 +14,8 @@ import ListViewComponent from '../Components/listView'
 import ApplyLeave from './applyLeave'
 import Login from './login'
 import SplashScreen from './splashScreen'
+import LandingPage from './landingPage'
+
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -25,12 +27,37 @@ const NavigationBarRouteMapper = {
             <TouchableOpacity
             underlayColor="transparent"
             style={{marginTop : 15,marginLeft : 10}}
+            onPress={() => { if (index > 0) { navigator.push({name:'landingPage'}) } }}
             >
-            <Icon name='ios-menu' size={28} color={'white'} />
+            <Icon name='ios-close' size={28} color={'white'} style={{marginLeft : 20}} />
             </TouchableOpacity>)
 
       case 'splashScreen':
             return (null)
+
+      case 'applyLeave':
+            return (
+              <TouchableOpacity
+              underlayColor="transparent"
+              style={{marginTop : 15,marginLeft : 10}}
+              onPress={() => { if (index > 0) { navigator.pop()} }}
+              >
+              <Icon name='ios-arrow-back' size={28} color={'white'} />
+              </TouchableOpacity>
+
+            )
+
+      case 'landingPage':
+            return (
+              <TouchableOpacity
+              underlayColor="transparent"
+              style={{marginTop : 15,marginLeft : 10}}
+              onPress={() => { alert("Settings Modal") }}
+              >
+              <Icon name='ios-menu' size={28} color={'white'} />
+              </TouchableOpacity>
+
+            )
 
       default :
             return (
@@ -70,7 +97,7 @@ const NavigationBarRouteMapper = {
             Login
             </Text>);
 
-            case 'splashScreen':
+      case 'splashScreen':
               return(<Text style={{
               marginTop : 15,
               color : 'white',
@@ -83,7 +110,7 @@ const NavigationBarRouteMapper = {
               Leave Buddy
             </Text>);
 
-            case 'applyLeave':
+      case 'applyLeave':
               return(<Text style={{
               marginTop : 15,
               color : 'white',
@@ -96,6 +123,18 @@ const NavigationBarRouteMapper = {
               Select Date
             </Text>);
 
+      default:
+              return(<Text style={{
+              marginTop : 15,
+              color : 'white',
+              fontSize: 18,
+              fontWeight:'300',
+              justifyContent : 'center',
+            //borderColor:'black',
+            //borderWidth: 1
+              }}>
+              Leave Buddy
+            </Text>);
 
 
 
@@ -120,6 +159,12 @@ class Home extends Component{
 
     case 'applyLeave':
     return Navigator.SceneConfigs.FloatFromBottom
+
+    case 'landingPage':
+    return Navigator.SceneConfigs.FloatFromBottom
+
+    default :
+    return Navigator.SceneConfigs.FloatFromBottom
   }}
 
   renderScene(route,navigator){
@@ -134,6 +179,9 @@ class Home extends Component{
 
     case 'applyLeave':
     return <ApplyLeave  navigator={navigator} />
+
+    case 'landingPage':
+    return <LandingPage  navigator={navigator} />
 
 
 

@@ -36,7 +36,7 @@ class Button extends Component{
         .then((result) =>
         {
           console.log('Logged In')
-          this.props.navigator.push({name:'applyLeave'})
+          this.props.navigator.push({name:'landingPage'})
         },
         (error)=>{
           alert(error)

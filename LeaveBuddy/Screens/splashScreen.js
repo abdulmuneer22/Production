@@ -23,7 +23,7 @@ class SplashScreen extends Component {
   componentDidMount(){
 
     firebase.initializeApp(firebaseConfig)
-    
+
     setTimeout(()=>
     {
         this.props.navigator.push({name:'login'})

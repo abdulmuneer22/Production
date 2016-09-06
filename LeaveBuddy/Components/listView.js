@@ -37,14 +37,41 @@ class ListViewComponent extends Component{
       dataSource : new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       }),
-      spinnerVisible : true
+      spinnerVisible : true,
+      _rowDataTitle : ''
       }
   }
 
 componentWillMount(){
-firebase.initializeApp(firebaseConfig)
+//firebase.initializeApp(firebaseConfig)
 this.getListItems()
 }
+
+
+handleButtonClick(rowData){
+  // prop is passed by Component using Button
+  //alert(rowData.Title)
+  switch(rowData.routeName){
+    case 'applyLeave':
+          console.log("Apply For Leave !!")
+          this.props.navigator.push({name:'applyLeave'})
+
+          break;
+    case 'checkLeaveApplication':
+          console.log("Leave Application Status")
+          break;
+
+    case 'checkLeaveBalance':
+          console.log("Leave Balance")
+          break;
+
+    case 'checkTeamsAttendance':
+          console.log("Check Teams Attendance Status")
+          break;
+
+  }
+
+  }
 
 getListItems(){
 // Method to fetc list from Firebase
@@ -55,7 +82,7 @@ var Ref = firebase.database().ref('LeaveBuddy')
 //CanRef.on('value',(can)=>{console.log(can.val());})
 Ref.on('value',(list)=>{
 //Store Product Information to array items = []
-console.log(list.val())
+//console.log(list.val())
 var items = []
 // Iterate through the list and store it as key => value to items = []
       list.forEach((child)=>
@@ -64,7 +91,8 @@ var items = []
               {
                 Title : child.val().Title,
                 LeftIconName : child.val().LeftIconName,
-                RightIconName : child.val().RightIconName
+                RightIconName : child.val().RightIconName,
+                routeName : child.val().routeName
 
 
             }
@@ -136,12 +164,19 @@ style={{
 
               }}>
 
+
+
               <View style={{ flex : 1}}>
                 <Icon name={rowData.LeftIconName} size={30} color="rgb(75, 73, 73)" />
               </View>
 
 
-              <Text style={{flex : 3,marginTop :5,fontSize : 16}}>
+              <Text style={{
+                flex : 3,
+                marginTop :5,
+                fontSize : 16}}
+                onPress={this.handleButtonClick.bind(this,rowData)}
+              >
               {rowData.Title}
               </Text>
 
