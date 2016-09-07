@@ -45,7 +45,7 @@ redirect(routeName){
   this.props.navigator.push(
     {
       name:routeName
-      
+
     }
     )
 
@@ -92,43 +92,43 @@ this.redirect('login')
   render() {
     return (
       <View style={styles.container}>
-      
-     
 
 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Name" 
-      onChangeText = {(text) => this.setState({name:text})} 
+
+
+      <TextInput
+      style={styles.input}
+      placeholder="Name"
+      onChangeText = {(text) => this.setState({name:text})}
       value={this.state.name}
       />
 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Email" 
-      onChangeText = {(text) => this.setState({email:text})} 
+      <TextInput
+      style={styles.input}
+      placeholder="Email"
+      onChangeText = {(text) => this.setState({email:text})}
       value={this.state.email}
       />
-      
-     
 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Password" 
+
+
+      <TextInput
+      style={styles.input}
+      placeholder="Password"
       secureTextEntry = {true}
-      onChangeText = {(text) => this.setState({password:text})} 
+      onChangeText = {(text) => this.setState({password:text})}
       value={this.state.password}
       />
 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Confirm Password" 
+      <TextInput
+      style={styles.input}
+      placeholder="Confirm Password"
       secureTextEntry = {true}
-      onChangeText = {(text) => this.setState({password_confirmation:text})} 
+      onChangeText = {(text) => this.setState({password_confirmation:text})}
       value={this.state.password_confirmation}
       />
-      
-      <TouchableHighlight 
+
+      <TouchableHighlight
       style={styles.Button}
       onPress = {this.onRegisterPress.bind(this)}
 
@@ -140,27 +140,27 @@ this.redirect('login')
       <Text>Already Have An Account ?</Text>
       <Text></Text>
       </View>
-      <TouchableHighlight 
+      <TouchableHighlight
       style={styles.Button}
       onPress = {this.redirect.bind(this,'login')}
 
       >
       <Text style={styles.ButtonText}>Login</Text>
       </TouchableHighlight>
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
       </View>
-      
 
 
 
-        
-      
+
+
+
     );
   }
 }
@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
       alignItems : 'center',
       alignSelf : 'center',
       width : window.width*0.7,
-      borderColor : 'red'
+      borderColor : 'red',
+      height : 40
   },
   inputWrapper : {
       borderColor : 'red',
@@ -186,15 +187,15 @@ const styles = StyleSheet.create({
   Button : {
   flexDirection : 'column',
   alignItems : 'center',
-  width: window.width * 0.7, 
-  backgroundColor : '#039BE5', 
+  width: window.width * 0.7,
+  backgroundColor : '#039BE5',
   height : 45,
   borderColor : '#039BE5',
   borderWidth : 3,
   borderRadius : 0.5,
   justifyContent : 'center',
-  marginBottom :10 
-  
+  marginBottom :10
+
   },
   SkipButton:{
     backgroundColor : '#37474F',
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
     fontWeight : 'bold',
     color : 'white'
   }
- 
+
 });
 
 export default Register

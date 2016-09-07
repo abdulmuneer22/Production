@@ -76,27 +76,27 @@ const NavigationBarRouteMapper = {
 
       case 'login':
             return <Text
-            style={{fontFamily:'DroidSans',marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center',borderColor:'black',borderWidth: 1}}>
+            style={{marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center',borderColor:'black',borderWidth: 1}}>
             Login</Text>
       case 'SplashScreen':
             return <Text
-            style={{fontFamily:'DroidSans',marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center',borderColor:'black',borderWidth: 1}}>
+            style={{marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center',borderColor:'black',borderWidth: 1}}>
             Loading</Text>
       case 'mainScreen':
             return <Text
-            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold',fontFamily:'DroidSans'}}>
+            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold'}}>
             Urban Services</Text>
       case 'watercan':
             return <Text
-            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold',fontFamily:'DroidSans'}}>
+            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold'}}>
             Water Cans</Text>
       case 'myCart':
             return <Text
-            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold',fontFamily:'DroidSans'}}>
+            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold'}}>
             Your Cart</Text>
       case 'LPrices':
             return <Text
-            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold',fontFamily:'DroidSans'}}>
+            style={{marginTop : 15,marginLeft : 0,color : 'white',fontSize: 19,fontWeight:'bold'}}>
             Laundry Prices</Text>
 
     }

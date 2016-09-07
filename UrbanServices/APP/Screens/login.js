@@ -14,7 +14,7 @@ import {
 
 import firebase from 'firebase';
 import NavigationBar from './NavigationBar'
- 
+
 
 const window = Dimensions.get('window');
 const ACCESS_TOKEN = 'access_token'
@@ -48,23 +48,23 @@ redirect(routeName){
     {
       name:routeName,
       title : 'Login'
-      
+
     }
     )
 
 
 }
-  
+
 
 onSignInPress(){
-  
+
   let email = this.state.email
   let password = this.state.password
 
   // Sing In User With Firebase 3.1
-  
+
   firebase.auth().signInWithEmailAndPassword(email,password)
-  .then((result)=> 
+  .then((result)=>
   {
 
   //alert(result.uid)
@@ -74,16 +74,16 @@ onSignInPress(){
   this.checkIfAddressUpdated()
   //this.redirect('updateAddress')
 
-  }, 
-  (error)=> 
+  },
+  (error)=>
   {
-  // Write Better exception handling 
+  // Write Better exception handling
   alert(error)
   }
   );
 
-        
- 
+
+
 
 }
 
@@ -103,31 +103,31 @@ checkIfAddressUpdated(){
               .then((snapshot)=>{
               var isRegistered = snapshot.hasChild(currentUser)
               if(isRegistered)
-              {  
+              {
               //alert("Yes Address Updated")
               // Show the same address details
               this.redirect('mainScreen')
-              
+
               }else{
                 this.redirect('updateAddress')
               }
               })
 
         }else{
-          
+
           this.redirect('updateAddress')
         }
 
   })
 
 
-  
-  
+
+
 }
 
 
 onSkipPress(){
- 
+
  this.redirect('mainScreen')
 
 }
@@ -140,34 +140,34 @@ onSkipPress(){
      <View>
       <View style={styles.container}>
       <View style={styles.formWrapper}>
-      <TextInput 
-      style={styles.input} 
-      placeholder="Email" 
-      onChangeText = {(text) => this.setState({email:text})} 
+      <TextInput
+      style={styles.input}
+      placeholder="Email"
+      onChangeText = {(text) => this.setState({email:text})}
       value={this.state.email}
       />
-      
- 
-      <TextInput 
-      style={styles.input} 
-      placeholder="Password" 
+
+
+      <TextInput
+      style={styles.input}
+      placeholder="Password"
       secureTextEntry = {true}
-      onChangeText = {(text) => this.setState({password:text})} 
+      onChangeText = {(text) => this.setState({password:text})}
       value={this.state.password}
       />
 
-      <TouchableHighlight 
+      <TouchableHighlight
       style={styles.Button}
-      onPress = 
+      onPress =
       {this.onSignInPress.bind(this)}
 
       >
       <Text style={styles.ButtonText}>Login</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight 
+      <TouchableHighlight
       style={[styles.Button,styles.SkipButton]}
-      onPress = 
+      onPress =
       {this.onSkipPress.bind(this)}
 
       >
@@ -179,12 +179,12 @@ onSkipPress(){
 
       </View>
       </View>
-      
+
 
 </View>
 
-        
-      
+
+
     );
   }
 }
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     //height:window.height-100
   },
   formWrapper:
-  
+
   {
     justifyContent:'center',
     marginTop : window.height*0.2
@@ -206,11 +206,11 @@ const styles = StyleSheet.create({
   },
 
   input :{
-      
+
       alignItems : 'center',
       alignSelf : 'center',
       width : window.width*0.7,
-      borderColor : 'red'
+      height : 40,
   },
   inputWrapper : {
       borderColor : 'red',
@@ -220,8 +220,8 @@ const styles = StyleSheet.create({
   Button : {
   flexDirection : 'column',
   alignItems : 'center',
-  width: window.width * 0.7, 
-  backgroundColor : '#039BE5', 
+  width: window.width * 0.7,
+  backgroundColor : '#039BE5',
   height : 45,
   borderColor : '#039BE5',
   borderWidth : 3,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   justifyContent : 'center',
   marginBottom :10,
   marginTop : 10
-  
+
   },
   SkipButton:{
     backgroundColor : '#37474F',
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     fontWeight : 'bold',
     color : 'white'
   }
- 
+
 });
 
 export default LogIn

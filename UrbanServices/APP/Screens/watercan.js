@@ -33,8 +33,8 @@ const window = Dimensions.get('window');
 class WaterCan extends Component {
 constructor(props){
   super(props);
-    
-    
+
+
     this.state = {
 
       dataSource : new ListView.DataSource({
@@ -86,7 +86,7 @@ var CanRef = firebase.database().ref('urbanservices/products/watercan/')
 CanRef.on('value',(can)=>{
   //alert(can.val())
   var items = []
-  
+
   can.forEach((child)=>{
     items.push({
       title : child.val().productTitle,
@@ -102,7 +102,7 @@ CanRef.on('value',(can)=>{
   //console.log(items)
    this.setState({
         dataSource: this.state.dataSource.cloneWithRows(items)
-        
+
       });
   //alert("Loaded")
   this.setState({spinnerVisible:false})
@@ -110,7 +110,7 @@ CanRef.on('value',(can)=>{
 
 }
 
- 
+
 
 
 
@@ -120,8 +120,8 @@ CanRef.on('value',(can)=>{
 
      <View style={styles.container}>
       <Text style={{marginBottom : 60}}></Text>
-      
-      
+
+
       <ScrollView showsVerticalScrollIndicator = {false} style={{}}>
       {this.state.spinnerVisible?
 
@@ -130,7 +130,7 @@ CanRef.on('value',(can)=>{
             <Text style={{justifyContent:'center',textAlign:'center',color : '#00bcd4',marginTop : 10}}>Please Wait..!!</Text>
          </View>
          :
-         
+
             <ListView
             dataSource = {this.state.dataSource}
             renderRow = {
@@ -158,7 +158,7 @@ CanRef.on('value',(can)=>{
             resizeMode = {Image.resizeMode.contain}
 
             />
-            <TouchableHighlight 
+            <TouchableHighlight
             style={styles.addToCartButton}
             onPress = {this.addToCartButtonPressd.bind(this,rowData.sku,rowData.price,rowData.name)}
 
@@ -173,16 +173,16 @@ CanRef.on('value',(can)=>{
 
 
             />
-        
+
       }
 
 
 
 
-      
+
 
       </ScrollView>
-    
+
     </View>
     );
 
@@ -201,13 +201,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    
+
   },
   dpImage:{
     width : 300,
     height : 420,
     alignSelf:'center'
-    
+
   },
 
   productTitleWrapper:{
@@ -217,19 +217,20 @@ const styles = StyleSheet.create({
    alignItems : 'center',
    borderBottomColor:"#BDBDBD",
    borderBottomWidth:1,
-   
-   
-   
+
+
+
   },
 
   productTitle:{
-    fontSize : 18,
+    fontSize : 16,
     color : '#37474F',
     marginLeft : 10,
-    flex : 4
+    flex : 4,
+
   },
   productPrice : {
-    fontSize : 19,
+    fontSize : 14,
     fontWeight : "300",
     flex : 2,
     marginLeft : 10
@@ -237,14 +238,14 @@ const styles = StyleSheet.create({
   addToCartButton : {
   flexDirection : 'column',
   alignItems : 'center',
-  width: window.width * 0.9, 
-  backgroundColor : '#039BE5', 
+  width: window.width * 0.9,
+  backgroundColor : '#039BE5',
   height : 45,
   borderColor : '#039BE5',
   borderWidth : 3,
   borderRadius : 0.5,
   justifyContent : 'center',
-  
+
   },
   addToCartButtonText:{
     fontSize : 16,
