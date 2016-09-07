@@ -3,12 +3,20 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 import ListViewComponent from '../Components/listView'
 
+
 class LandingPage extends Component{
+
+
+
+
+
+
 // Passed the prop to inputForm Component
   render(){
     return(

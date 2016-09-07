@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Image,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 const window = Dimensions.get('window');
@@ -20,18 +21,51 @@ const firebaseConfig = {
 
 class SplashScreen extends Component {
 
-  componentDidMount(){
+constructor(){
+super();
+firebase.initializeApp(firebaseConfig)
+this.state = {
+    currentUser : "",
+    isLoggedIn : false
+  }
+}
 
-    firebase.initializeApp(firebaseConfig)
 
-    setTimeout(()=>
+componentDidMount(){
+
+
+
+setTimeout(()=>
     {
-        this.props.navigator.push({name:'login'})
+
+
+        this.getUser()
+
     },
-    3500
+    1000
 
       );
-    }
+
+}
+
+
+
+async getUser(){
+  let User =  await AsyncStorage.getItem('userEmail')
+  if(!User){
+    //alert("No User")
+    this.props.navigator.push({name:'login'})
+  }
+  else {
+    //alert(User)
+    this.props.navigator.push({name:'landingPage'})
+
+
+
+  }
+}
+
+
 
 
   render(){

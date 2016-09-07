@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 const window = Dimensions.get('window');
@@ -35,8 +36,16 @@ class Button extends Component{
         firebase.auth().signInWithEmailAndPassword(userName,passWord)
         .then((result) =>
         {
-          console.log('Logged In')
-          this.props.navigator.push({name:'landingPage'})
+          //console.log('Logged In')
+          this.props.navigator.push({
+            name:'landingPage'
+          })
+
+          var user = firebase.auth().currentUser
+          AsyncStorage.setItem("userEmail",user.email)
+
+
+
         },
         (error)=>{
           alert(error)

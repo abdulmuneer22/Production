@@ -1,8 +1,4 @@
-/****************************
 
-List view , pulling list item directly from firebase
-
-*/
 
 import React, { Component } from 'react';
 import {
@@ -13,7 +9,8 @@ import {
   ScrollView,
   Image,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 import GiftedSpinner from 'react-native-gifted-spinner';
@@ -48,13 +45,35 @@ this.getListItems()
 }
 
 
+async getUser(){
+  let User =  await AsyncStorage.getItem('userEmail')
+  if(!User){
+    //alert("No User")
+    this.props.navigator.push({name:'login'})
+  }
+  else {
+    //alert(User)
+    this.props.navigator.push({name:'applyLeave'})
+
+
+
+  }
+}
+
+
 handleButtonClick(rowData){
   // prop is passed by Component using Button
   //alert(rowData.Title)
   switch(rowData.routeName){
     case 'applyLeave':
-          console.log("Apply For Leave !!")
-          this.props.navigator.push({name:'applyLeave'})
+          //Chekc if user is logged in
+
+          this.getUser()
+
+          //Checks if user is logged in , redirects him to login page if not
+
+
+
 
           break;
     case 'checkLeaveApplication':
