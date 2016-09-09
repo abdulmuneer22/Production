@@ -110,7 +110,7 @@ this.redirect('login')
       value={this.state.email}
       />
 
-      
+
 
       <TextInput
       style={styles.input}

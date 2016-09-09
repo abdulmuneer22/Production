@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -11,16 +10,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import SplashScreen from  './APP/Screens/SplashScreen'
-import Register from './APP/Screens/register'
-import LogIn from './APP/Screens/login'
-import MainScreen from './APP/Screens/mainScreen'
-import UpdateAddress from './APP/Screens/updateAddress'
-import WaterCan from './APP/Screens/watercan'
-import MyCart from './APP/Screens/myCart'
+import SplashScreen from  './SplashScreen'
+import Register from './register'
+import LogIn from './login'
+import MainScreen from './mainScreen'
+import UpdateAddress from './updateAddress'
 
-// Laundry imports
-import LPrices from './APP/Screens/Laundry/LPrices'
+import MyInventory from './myInventory'
+
 
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -88,7 +85,7 @@ const NavigationBarRouteMapper = {
       case 'login':
             return <Text
             style={{marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center'}}>
-            Login</Text>
+            Vendor Login</Text>
       case 'SplashScreen':
             return <Text
             style={{marginTop : 15,color : 'white',fontSize: 19,fontWeight:'bold',justifyContent : 'center'}}>
@@ -120,12 +117,12 @@ const NavigationBarRouteMapper = {
   }
 }
 
-class UrbanServices extends Component {
+class Main extends Component {
   constructor(){
   super();
 
   this.state = {
-    _initialRoute : 'splashScreen',
+    _initialRoute : 'SplashScreen',
     R : '',
     G : '',
     B : '',
@@ -138,69 +135,43 @@ class UrbanServices extends Component {
 
 renderScene(route,navigator){
 
-  if(route.name == 'mainScreen'){
-      return <MainScreen  navigator={navigator} />
-    }
+  switch (route.name) {
+case 'mainScreen':
+  return <MainScreen  navigator={navigator} />
+  break;
 
-  if(route.name == 'SplashScreen'){
-      return <SplashScreen navigator={navigator} />
-    }
-
-
-  if(route.name == 'root'){
-      return <Root  navigator={navigator}/>
-    }
-
-  if(route.name == 'home'){
-      return <Landingpage  navigator={navigator}/>
-    }
+case 'SplashScreen':
+  return <SplashScreen  navigator={navigator} />
+  break;
 
 
-  if(route.name == 'register'){
-      return <Register  navigator={navigator}/>
-    }
+case 'home':
+  return <Landingpage  navigator={navigator} />
+  break;
 
-  if(route.name == 'login'){
-    return <LogIn  navigator={navigator}/>
+case 'register':
+  return <Register  navigator={navigator} />
+  break;
+
+
+case 'login':
+  return <LogIn  navigator={navigator} />
+  break;
+
+
+case 'myInventory':
+  return <MyInventory  navigator={navigator} />
+  break;
+
+  default:
+  return <LogIn  navigator={navigator} />
+
   }
-
-  if(route.name == 'myaccount'){
-    return <MyAccount  navigator={navigator} {...route.passProps}/>
-  }
-
-if(route.name == 'categories'){
-    return <Categories  navigator={navigator} {...route.passProps}/>
-  }
-
-if(route.name == 'watercan'){
-    return <WaterCan  navigator={navigator} {...route.passProps} />
-  }
-
-if(route.name == 'navbar'){
-    return <NavBar  navigator={navigator} {...route.passProps} />
-  }
-
-
-if(route.name == 'myCart'){
-    return <MyCart  navigator={navigator} {...route.passProps} />
-  }
-
-
-if(route.name == 'updateAddress'){
-    return <UpdateAddress  navigator={navigator} {...route.passProps} />
-  }
-
-
-if(route.name == 'testview'){
-    return <TestView  navigator={navigator} {...route.passProps} />
-  }
-
-if(route.name == 'LPrices'){
-    return <LPrices  navigator={navigator} {...route.passProps} />
-  }
-
 
 }
+
+
+
 
 configureScene(route){
 
@@ -209,32 +180,11 @@ configureScene(route){
   switch(route.name){
     case 'login':
       return Navigator.SceneConfigs.FloatFromBottom
+      break;
 
-    case 'myaccount':
-      return Navigator.SceneConfigs.FloatFromLeft
+    default :
+      return Navigator.SceneConfigs.FloatFromBottom
 
-    case 'register':
-      return Navigator.SceneConfigs.VerticalDownSwipeJump
-
-     case 'categories':
-      return Navigator.SceneConfigs.HorizontalSwipeJump
-
-      case 'watercan':
-      return fromleft
-
-      case 'mainScreen':
-      return Navigator.SceneConfigs.FadeAndroid
-
-       case 'myCart':
-      return Navigator.SceneConfigs.FadeAndroid
-
-
-       case 'updateAddress':
-      return Navigator.SceneConfigs.FadeAndroid
-
-
-       case 'LPrices':
-      return Navigator.SceneConfigs.FadeAndroid
 
 
 
@@ -244,8 +194,6 @@ configureScene(route){
 
 
 }
-
-
 
 
 
@@ -255,14 +203,14 @@ configureScene(route){
     return (
       <Navigator
       style = {styles.mainscreen}
-      initialRoute={{name: 'SplashScreen'}}
+      initialRoute={{name: this.state._initialRoute}}
       renderScene={this.renderScene.bind(this)}
       //configureScene={()=>{return Navigator.SceneConfigs.FloatFromRight}}
       configureScene={this.configureScene.bind(this)}
 
       navigationBar={
       <Navigator.NavigationBar
-      style={{backgroundColor : this.state.Color}}
+      style={{backgroundColor : 'grey'}}
       routeMapper={NavigationBarRouteMapper} />
       }
 
@@ -271,6 +219,8 @@ configureScene(route){
     );
   }
 }
+
+export default Main
 
 const styles = StyleSheet.create({
   container: {
@@ -286,5 +236,3 @@ const styles = StyleSheet.create({
         justifyContent : 'center'
     },
 });
-
-AppRegistry.registerComponent('UrbanServices', () => UrbanServices);

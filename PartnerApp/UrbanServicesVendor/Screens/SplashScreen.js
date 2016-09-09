@@ -25,18 +25,17 @@ import GiftedSpinner from 'react-native-gifted-spinner';
 class SplashScreen extends Component {
   constructor(){
     super();
-    firebase.initializeApp(firebaseConfig)
     this.state={spinnerVisible : true}
   }
   componentDidMount(){
-    //firebase.initializeApp(firebaseConfig)
+    firebase.initializeApp(firebaseConfig)
 
 
     setTimeout(()=>
     {
 
 
-        this.checkUserLogin()
+        this.getUser()
 
     },
     1000
@@ -44,14 +43,25 @@ class SplashScreen extends Component {
       );
   }
 
-checkUserLogin(){
-if(!firebase.auth().currentUser){
-this.props.navigator.push({name:'login'})
-}else{
-this.props.navigator.push({name:'mainScreen'})
-}
 
-}
+  async getUser(){
+    let User =  await AsyncStorage.getItem('userEmail')
+    if(!User){
+      //alert("No User")
+      this.props.navigator.push({name:'login'})
+    }
+    else {
+      //alert(User)
+      this.props.navigator.push({name:'myInventory'})
+
+
+
+    }
+  }
+
+
+
+
   render() {
     return (
         <View style={{marginTop : 100}}>

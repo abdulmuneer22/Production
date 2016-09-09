@@ -35,16 +35,19 @@ constructor(){
     uid : "",
     sku : "",
     quantity : "1",
-    Debugger : false
+    Debugger : false,
+    dataSource : new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,}),
+    spinnerVisible : false,
+    userAddress : ''
 
   }
 }
 
 
 
-componentDidMount(){
+componentWillMount(){
 
-
+this.getUserAddress()
 }
 
 placeOrder(){
@@ -53,9 +56,44 @@ placeOrder(){
   }else{
     this._placeOrder()
   }
-    
+
   }
 
+
+
+
+getUserAddress(){
+
+currentUserID = firebase.auth().currentUser.uid
+var AddressRef = firebase.database().ref('urbanservices/users/VnP41vwg44WgJZUzo1kx7kEPEmo2/address')
+AddressRef.on('value',(ref)=>{
+  //console.log(address.val())
+
+
+  var _userAddress = {
+    name : ref.val().name,
+    houseNumber : ref.val().houseNumber,
+    streetName : ref.val().streetName,
+    locality : ref.val().locality,
+    pinCode : ref.val().pinCode,
+    mobileNumber : ref.val().mobileNumber
+  }
+
+  //console.log(items)
+   this.setState({
+        name : ref.val().name,
+        houseNumber : ref.val().houseNumber,
+        streetName : ref.val().streetName,
+        locality : ref.val().locality,
+        pinCode : ref.val().pinCode,
+        mobileNumber : ref.val().mobileNumber
+      });
+  //alert("Loaded")
+  this.setState({spinnerVisible:false})
+
+})
+
+}
 
 _placeOrder(){
   var userEmail = firebase.auth().currentUser.email;
@@ -63,7 +101,7 @@ _placeOrder(){
   var orderID = Date.now()
   var quantity = 1
   var vendorID = "W001"
-  
+
   var orderDate = "10102016"
   var UserID = firebase.auth().currentUser.uid
 
@@ -86,7 +124,7 @@ _placeOrder(){
 
   render(){
     return(
-      
+
      <View style={styles.container}>
         <Text style={{marginBottom : 60}}></Text>
        <View style={styles.cartItemsWrapper}>
@@ -95,45 +133,42 @@ _placeOrder(){
               style = {styles.dpImage}
               source = {{uri: 'http://4.imimg.com/data4/OF/BI/MY-23505475/mineral-water-can-250x250.jpg'}}
               resizeMode = {Image.resizeMode.contain}
-          
+
             />
               </View>
               <View style={styles.cart}>
               <Text style={{fontSize:18,fontWeight:'bold',marginBottom:10}}>{this.props.title}</Text>
-              
+
               <Text style={{textAlign:'left'}}>Reverse osmosised hygeninc mineral water from aquafina</Text>
               <Text style={{color:'red',marginTop : 20,fontSize : 18,}}>{this.props.price}</Text>
               </View>
 
-                
+
 
        </View>
 
-        <TouchableHighlight 
+        <TouchableHighlight
                 style={[styles.Button,styles.SkipButton]}
-                onPress = 
+                onPress =
                 {this.placeOrder.bind(this)}
 
                 >
                 <Text style={styles.ButtonText}> Place Order</Text>
-                </TouchableHighlight>
+        </TouchableHighlight>
 
-                {this.state.Debugger ?
-                    <View>
+        <View>
+          <Text>Delivery Address</Text>
+          <Text>Name : {this.state.name}</Text>
+          <Text>Mobile Number : {this.state.mobileNumber}</Text>
+          <Text>House Number : {this.state.houseNumber}</Text>
+          <Text>Street Name : {this.state.streetName}</Text>
+          <Text>Locality : {this.state.locality}</Text>
+          <Text>PinCode : {this.state.pinCode}</Text>
 
-                    <Text>Debugger</Text>
-                    <Text>Email : {this.state.email}</Text>
-                    <Text>User ID : {this.state.uid}</Text>
-                    <Text>SKU : {this.props.sku}</Text>
-                    <Text>Qty : {this.state.quantity}</Text>
+        </View>
 
-                    </View>
 
-        
-                :null}
-        
 
-    
     </View>
     );
 
@@ -153,13 +188,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5F5F5',
     flexDirection : 'column'
-    
+
   },
   dpImage:{
     width : 120,
     height : 140,
     alignSelf:'center'
-    
+
   },
   cartItemsWrapper:{
     flexDirection : 'row',
@@ -169,7 +204,7 @@ const styles = StyleSheet.create({
     height : 150,
     backgroundColor : '#FFFFFF',
     marginTop : 20
-    
+
     //marginLeft : 20,
     //marginRight : 20
     //alignSelf : 'center'
@@ -189,8 +224,8 @@ const styles = StyleSheet.create({
   Button : {
   flexDirection : 'column',
   alignItems : 'center',
-  width: window.width * 0.95, 
-  backgroundColor : '#039BE5', 
+  width: window.width * 0.95,
+  backgroundColor : '#039BE5',
   height : 45,
   borderColor : '#039BE5',
   borderWidth : 3,
@@ -198,15 +233,15 @@ const styles = StyleSheet.create({
   justifyContent : 'center',
   marginBottom :10,
   marginTop : 10
-  
+
   },
   ButtonText:{
     fontSize : 16,
     fontWeight : 'bold',
     color : 'white'
   }
-  
+
 });
 
 
-export default MyCart 
+export default MyCart

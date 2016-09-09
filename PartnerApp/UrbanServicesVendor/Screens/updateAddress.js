@@ -29,12 +29,19 @@ super()
 this.state = {
   name : "",
   email : "",
-  houseNumber : '',
-  streetName : '',
-  locality : '',
-  pinCode : '',
-  mobileNumber : ''
-
+  address_1 : "",
+  address_2 : "",
+  pincode : "",
+  mobile:"",
+  address : {
+      name : 'Name',
+      emailID : 'Email',
+      houseNumber : 'houseNumber',
+      streetName : 'StreetName',
+      locality : 'Locality',
+      pinCode : 'Pincode',
+      mobileNumber : 'MobileNumber'
+  }
 }
 
 }
@@ -66,21 +73,15 @@ async getToken(){
  onUpdateAddress(){
   let uid = firebase.auth().currentUser.uid
 
-  var _address = {
-    name : this.state.name,
-    houseNumber : this.state.houseNumber,
-    streetName : this.state.streetName,
-    locality : this.state.locality,
-    pinCode : this.state.pinCode,
-    mobileNumber : this.state.mobileNumber
-  }
-
   firebase.database().ref('urbanservices/users/'+uid).update({
-  name: this.state.name,
-  pincode : this.state.pinCode,
+  _name: this.state.name,
+  address_1 : this.state.address_1,
+  address_2 : this.state.address_2,
+  pincode : this.state.pincode,
+  mobile : this.state.mobile,
   addressUpdated : "true",
-  emailID : firebase.auth().currentUser.email,
-  address : _address
+  address : this.state.address
+
 
   });
 
@@ -96,6 +97,7 @@ async getToken(){
       <View style={styles.container}>
 
 
+      <Text>Update Your Address</Text>
       <TextInput
       style={styles.input}
       placeholder="Name :"
@@ -106,24 +108,18 @@ async getToken(){
 
       <TextInput
       style={styles.input}
-      placeholder="house Number:"
-      onChangeText = {(text) => this.setState({houseNumber:text})}
-      value={this.state.houseNumber}
+      placeholder="Address :"
+      onChangeText = {(text) => this.setState({address_1:text})}
+      value={this.state.address_1}
       />
 
       <TextInput
       style={styles.input}
-      placeholder="Street Name"
-      onChangeText = {(text) => this.setState({streetName:text})}
-      value={this.state.streetName}
+      placeholder="Address :"
+      onChangeText = {(text) => this.setState({address_2:text})}
+      value={this.state.address_2}
       />
 
-      <TextInput
-      style={styles.input}
-      placeholder="Locality"
-      onChangeText = {(text) => this.setState({locality:text})}
-      value={this.state.locality}
-      />
 
       <TextInput
       style={styles.input}
@@ -135,8 +131,8 @@ async getToken(){
       <TextInput
       style={styles.input}
       placeholder="Mobile"
-      onChangeText = {(text) => this.setState({mobileNumber:text})}
-      value={this.state.mobileNumber}
+      onChangeText = {(text) => this.setState({mobile:text})}
+      value={this.state.mobile}
       />
 
 

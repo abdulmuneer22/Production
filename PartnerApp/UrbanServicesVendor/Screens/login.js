@@ -12,39 +12,39 @@ import {
   Dimensions
 } from 'react-native';
 
-
-
-
-
+import firebase from 'firebase';
 const window = Dimensions.get('window');
-const USERID = ""
+const ACCESS_TOKEN = 'access_token'
+const AddressUpdated = ""
 
-class Register extends Component {
+class LogIn extends Component {
 
 // Constructor
 constructor(){
-super()
+super();
+
 this.state = {
-  name : "",
+  accessToken : "",
   email : "",
   password : "",
   password_confirmation : "",
-  errors:[]
+  errors:[],
+  isLoggedIn : "",
+  token : "",
+  emptyPassWordEmailError : ""
 
 
 }
 
 }
-
-
-
 
 
 redirect(routeName){
 
   this.props.navigator.push(
     {
-      name:routeName
+      name:routeName,
+      title : 'Login'
 
     }
     )
@@ -53,32 +53,29 @@ redirect(routeName){
 }
 
 
+onSignInPress(){
 
+  let email = this.state.email
+  let password = this.state.password
 
+  // Sing In User With Firebase 3.1
 
+  firebase.auth().signInWithEmailAndPassword(email,password)
+  .then((result)=>
+  {
 
+    var user = firebase.auth().currentUser
+    AsyncStorage.setItem("userEmail",user.email)
+    this.props.navigator.push({name:'myInventory'})
 
+  },
+  (error)=>
+  {
+  // Write Better exception handling
+  alert(error)
+  }
+  );
 
-
-onRegisterPress(){
-
-let userID = this.state.name
-let userName = this.state.name
-let email = this.state.email
-
-
-firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password)
-.catch((error)=> {
-
-// Handle Errors here.
-alert(error)
-
-});
-
-
-
-
-this.redirect('login')
 
 
 
@@ -89,20 +86,13 @@ this.redirect('login')
 
 
 
+
+
   render() {
     return (
+     <View>
       <View style={styles.container}>
-
-
-
-
-      <TextInput
-      style={styles.input}
-      placeholder="Name"
-      onChangeText = {(text) => this.setState({name:text})}
-      value={this.state.name}
-      />
-
+      <View style={styles.formWrapper}>
       <TextInput
       style={styles.input}
       placeholder="Email"
@@ -110,7 +100,6 @@ this.redirect('login')
       value={this.state.email}
       />
 
-      
 
       <TextInput
       style={styles.input}
@@ -120,29 +109,10 @@ this.redirect('login')
       value={this.state.password}
       />
 
-      <TextInput
-      style={styles.input}
-      placeholder="Confirm Password"
-      secureTextEntry = {true}
-      onChangeText = {(text) => this.setState({password_confirmation:text})}
-      value={this.state.password_confirmation}
-      />
-
       <TouchableHighlight
       style={styles.Button}
-      onPress = {this.onRegisterPress.bind(this)}
-
-      >
-      <Text style={styles.ButtonText}>Register</Text>
-      </TouchableHighlight>
-
-      <View>
-      <Text>Already Have An Account ?</Text>
-      <Text></Text>
-      </View>
-      <TouchableHighlight
-      style={styles.Button}
-      onPress = {this.redirect.bind(this,'login')}
+      onPress =
+      {this.onSignInPress.bind(this)}
 
       >
       <Text style={styles.ButtonText}>Login</Text>
@@ -151,13 +121,11 @@ this.redirect('login')
 
 
 
-
-
-
+      </View>
       </View>
 
 
-
+</View>
 
 
 
@@ -168,16 +136,25 @@ this.redirect('login')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    //backgroundColor: '#F5FCFF',
+    //height:window.height-100
   },
+  formWrapper:
+
+  {
+    justifyContent:'center',
+    marginTop : window.height*0.2
+
+  },
+
   input :{
+
       alignItems : 'center',
       alignSelf : 'center',
       width : window.width*0.7,
-      borderColor : 'red',
-      height : 40
+      height : 40,
   },
   inputWrapper : {
       borderColor : 'red',
@@ -194,7 +171,8 @@ const styles = StyleSheet.create({
   borderWidth : 3,
   borderRadius : 0.5,
   justifyContent : 'center',
-  marginBottom :10
+  marginBottom :10,
+  marginTop : 10
 
   },
   SkipButton:{
@@ -210,4 +188,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Register
+export default LogIn
