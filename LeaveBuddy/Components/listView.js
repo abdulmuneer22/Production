@@ -95,7 +95,7 @@ handleButtonClick(rowData){
 getListItems(){
 // Method to fetc list from Firebase
 var EndPoint = 'urbanservices/LeaveBuddy'
-var Ref = firebase.database().ref('LeaveBuddy')
+var Ref = firebase.database().ref('LeaveBuddy/Functions')
 //var CanRef = firebase.database().ref('LeaveBuddy/')
 
 //CanRef.on('value',(can)=>{console.log(can.val());})

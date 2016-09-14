@@ -69,8 +69,10 @@ onSignInPress(){
 
   //alert(result.uid)
   // User Authenticated Successfully , Needs to redirect him to main page
+  
+  var currentUserEmail = firebase.auth().currentUser.email;
 
-
+  AsyncStorage.setItem("userEmail",currentUserEmail)
   this.checkIfAddressUpdated()
   //this.redirect('updateAddress')
 

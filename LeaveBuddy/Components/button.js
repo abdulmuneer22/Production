@@ -13,14 +13,57 @@ const window = Dimensions.get('window');
 
 import firebase from 'firebase';
 
+import moment from 'moment';
+
 class Button extends Component{
 
-  handleButtonClick(){
+  handleButtonClick(action){
     // prop is passed by Component using Button
-    switch(this.props.text){
+    switch(action){
       case 'Apply':
-        alert("Apply")
+        //tesing moment js 
+       
+       
+        var start = moment(this.props.startDate, "DD-MM-YYYY");
+        var end   = moment(this.props.endDate, "DD-MM-YYYY");
+
+        var numberOfDays = start.diff(end,'days') * -1
+        
+        if(!this.props.startDate | !this.props.endDate | numberOfDays < 1){
+          alert("Please Check The Dates You Selected")
+        }else{
+        //alert(numberOfDays)
+        // Generate LeaveID - empID+startDate+endDate
+          var leaveType = "Annual Leave"
+          var empID = "ppmuneer"
+          var leaveID = {
+            empID : "ppmuneer",
+            startDate : this.props.startDate,
+            endDate : this.props.endDate,
+            leaveType : "Annual",
+            approved : false
+          }
+          //var leaveID = empID+this.props.startDate +" to "+this.props.endDate + leaveType
+          //alert(leaveID)
+
+          firebase.database().ref('LeaveBuddy/users/'+empID+'/LeaveApplications').update({
+          application : leaveID
+
+          });
+        }
+        
+        
+        
+        
+
+
+
+        var _StartDate = new Date(this.props.startDate)
+        var _endDate = new Date(this.props.endDate)
+        
+        //alert("Start Date is " + _StartDate + _endDate)
         // Manage Leave Application Request !!
+        break;
 
 
 
@@ -66,7 +109,7 @@ class Button extends Component{
         <TouchableOpacity
         underlayColor={'black'}
         style={styles.Button}
-        onPress={this.handleButtonClick.bind(this)}
+        onPress={this.handleButtonClick.bind(this,this.props.text)}
         >
         <Text style={styles.ButtonText}>
         {this.props.text}
@@ -91,7 +134,6 @@ const styles = StyleSheet.create({
   borderRadius : 0.5,
   justifyContent : 'center',
   marginTop : 15,
-  borderRadius :7
 },
 ButtonText:{
     fontSize : 16,

@@ -154,17 +154,8 @@ class Home extends Component{
     case 'splashScreen':
     return Navigator.SceneConfigs.FloatFromBottom
 
-    case 'login':
-    return Navigator.SceneConfigs.FloatFromBottom
-
-    case 'applyLeave':
-    return Navigator.SceneConfigs.FloatFromBottom
-
-    case 'landingPage':
-    return Navigator.SceneConfigs.FloatFromBottom
-
     default :
-    return Navigator.SceneConfigs.FloatFromBottom
+    return Navigator.SceneConfigs.FloatFromLeft
   }}
 
   renderScene(route,navigator){

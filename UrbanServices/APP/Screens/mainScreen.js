@@ -34,11 +34,20 @@ constructor(){
   }
 }
 
-getUser(){
-  
-
+checkUserloggedIn(){
+  let User = AsyncStorage.getItem('userEmail')
+      if(User){
+      //alert("No User")
+      this.setState({currentUser : "true"})
+      }
+   
 }
 
+
+
+componetWillMount(){
+  this.checkUserloggedIn()
+}
 
 redirect(routeName){
 
@@ -52,20 +61,7 @@ redirect(routeName){
 
 }
     
-componentWillMount(){
-  
-  var _currentUser = firebase.auth().currentUser;
-  
-  //console.log(_currentUser.email)
-  
-  this.setState({
-          currentUser : _currentUser
-          
-        })
  
-
-  
-}    
 
     
 
@@ -115,7 +111,7 @@ return (
 
 
           {
-            !this.state.currentUser ? 
+            this.state.currentUser ? 
             
             
             <View style={{

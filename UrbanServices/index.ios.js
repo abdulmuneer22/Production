@@ -121,19 +121,7 @@ const NavigationBarRouteMapper = {
 }
 
 class UrbanServices extends Component {
-  constructor(){
-  super();
-
-  this.state = {
-    _initialRoute : 'splashScreen',
-    R : '',
-    G : '',
-    B : '',
-    Color : "rgb(23, 129, 217)"
-  }
-
-
-}
+ 
 
 
 renderScene(route,navigator){
@@ -262,7 +250,7 @@ configureScene(route){
 
       navigationBar={
       <Navigator.NavigationBar
-      style={{backgroundColor : this.state.Color}}
+      style={{backgroundColor : "green"}}
       routeMapper={NavigationBarRouteMapper} />
       }
 

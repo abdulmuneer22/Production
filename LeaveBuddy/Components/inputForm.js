@@ -24,9 +24,6 @@ class InputForm extends Component{
     }
   }
 
-  handleClick(){
-    alert("You Wish to submit")
-  }
 
   setFormType(){
 
@@ -46,7 +43,7 @@ class InputForm extends Component{
 
           <TextInput
           style={styles.inputBox}
-          placeholder="Start Date - DD-MM-YYYY"
+          placeholder="Start Date - DD/MM/YYYY"
           onChangeText = {(Date) => this.setState({startDate:Date})}
           value={this.state.startDate}
           />
@@ -62,7 +59,7 @@ class InputForm extends Component{
           </Text>
           <TextInput
           style={styles.inputBox}
-          placeholder="End Date - DD-MM-YYYY"
+          placeholder="End Date - DD/MM/YYYY"
           onChangeText = {(Date) => this.setState({endDate:Date})}
           value={this.state.endDate}
           />
@@ -75,7 +72,7 @@ class InputForm extends Component{
 
           <View style={styles.row}>
 
-          <Button text="Apply" {...this.props}/>
+          <Button text="Apply" startDate = {this.state.startDate} endDate = {this.state.endDate} {...this.props}/>
 
 
           </View>
@@ -116,6 +113,7 @@ class InputForm extends Component{
         </Text>
         <TextInput style={styles.inputBox}
         placeholder="Password"
+        secureTextEntry={true}
         onChangeText = {(Password) => this.setState({passWord:Password})}
         value={this.state.passWord}
         />

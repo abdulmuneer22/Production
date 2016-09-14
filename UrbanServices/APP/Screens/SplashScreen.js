@@ -36,7 +36,18 @@ class SplashScreen extends Component {
     {
 
 
-        this.checkUserLogin()
+      let User = AsyncStorage.getItem('userEmail')
+      if(!User){
+      //alert("No User")
+      this.props.navigator.push({name:'login'})
+      }
+      else {
+      //alert(User)
+      this.props.navigator.push({name:'mainScreen'})
+
+
+
+  }
 
     },
     1000
@@ -44,12 +55,9 @@ class SplashScreen extends Component {
       );
   }
 
-checkUserLogin(){
-if(!firebase.auth().currentUser){
-this.props.navigator.push({name:'login'})
-}else{
-this.props.navigator.push({name:'mainScreen'})
-}
+async checkUserLogin(){
+
+ 
 
 }
   render() {
